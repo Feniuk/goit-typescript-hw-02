@@ -48,6 +48,7 @@ function App() {
     <>
       <Description />
       <Options
+        options={Object.keys(types)}
         updateFeedback={updateFeedback}
         totalFeedback={totalFeedback}
         updateTotalFeedback={updateTotalFeedback}
