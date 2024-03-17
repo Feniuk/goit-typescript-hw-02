@@ -13,7 +13,9 @@ const Options = ({
           <button
             className={css.optionsBtn}
             onClick={() => updateFeedback(option)}
-          ></button>
+          >
+            {option.charAt(0).toUpperCase() + option.slice(1)}
+          </button>
         </li>
       ))}
       {totalFeedback > 0 && (
