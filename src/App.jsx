@@ -6,7 +6,10 @@ import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
 
 function App() {
-  const [contacts, setContacts] = useState(initialContacts);
+  const savedContacts =
+    JSON.parse(window.localStorage.getItem("saved-contacts")) ||
+    initialContacts;
+  const [contacts, setContacts] = useState(savedContacts);
   const [filter, setFilter] = useState("");
 
   const addContact = (newContact) => {
@@ -29,10 +32,6 @@ function App() {
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  const savedContacts = window.localStorage.getItem("saved-contacts");
-  if (savedContacts) {
-    return JSON.parse(savedContacts);
-  }
   return (
     <>
       <div>
