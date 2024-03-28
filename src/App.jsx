@@ -1,8 +1,10 @@
+import SearchBar from "./components/SearchBar/SearchBar";
+
 function App() {
   return (
     <>
       <div>
-        <>Zdarova!</>
+        <SearchBar />
       </div>
     </>
   );
