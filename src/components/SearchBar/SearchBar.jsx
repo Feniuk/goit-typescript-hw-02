@@ -10,12 +10,14 @@ const SearchBar = ({ onSubmitQuery }) => {
     const query = e.target.elements.query.value.trim();
 
     if (!query.length) {
-      toast.error("Please enter a topic to search!");
+      toast.error("Please, enter your query");
       return;
     }
+
     onSubmitQuery(query);
     form.reset();
   };
+
   return (
     <header>
       <form className={styles.form} onSubmit={handleSubmit}>

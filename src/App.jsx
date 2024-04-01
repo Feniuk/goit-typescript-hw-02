@@ -8,7 +8,6 @@ import ErrorMassage from "./components/ErrorMassage/ErrorMassage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
 import toast from "react-hot-toast";
-
 function App() {
   const [images, setImages] = useState(null);
   const [query, setQuery] = useState("");
@@ -49,6 +48,10 @@ function App() {
   }, [query, page]);
 
   const onSubmitQuery = (searchImage) => {
+    if (!searchImage.trim()) {
+      toast.error("Please enter a search query!");
+      return;
+    }
     setPage(1);
     setImages([]);
     setQuery(searchImage);
