@@ -11,7 +11,7 @@ export const requestImagesByQuery = async (query = "", page) => {
       query: query,
       orientation: "landscape",
       page: page,
-      per_page: 16,
+      per_page: 15,
     },
   };
   const { data } = await instance.get(`/search/photos/`, link);

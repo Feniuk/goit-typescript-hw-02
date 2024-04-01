@@ -9,15 +9,12 @@ const modalStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
-    marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    padding: 0, // Убираем внутренний отступ, чтобы изображение занимало всю доступную область модального окна
+    border: "none", // Убираем границу, чтобы модальное окно выглядело безрамочным
+    backgroundColor: "transparent", // Прозрачный фон модального окна
   },
   overlay: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
     backgroundColor: "rgba(0, 0, 0, 0.75)",
     display: "flex",
     justifyContent: "center",
@@ -32,7 +29,7 @@ const ImageModal = ({ isOpen, image, onCloseModal }) => {
       onRequestClose={onCloseModal}
       className={styles.modal}
       contentLabel="Image Modal"
-      styles={modalStyles}
+      style={modalStyles} // Заменили "styles" на "style"
     >
       <div className={styles.div}>
         <img

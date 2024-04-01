@@ -6,13 +6,11 @@
   align-items: center;
   row-gap: 15px;
   column-gap: 15px;
-  padding-top: 80px;
   padding-bottom: 20px;
 }
 
 .item {
-  width: calc((100% - 20px) / 4);
-  width: 343px;
+  width: 230px;
   height: 220px;
   cursor: pointer;
   flex-shrink: 0;

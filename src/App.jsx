@@ -74,7 +74,7 @@ function App() {
         {isLoading && <Loader />}
         {isError && <ErrorMassage />}
         {images && images.length > 0 && (
-          <ImageGallery items={images} onOpenModal={onOpenModal} />
+          <ImageGallery images={images} onOpenModal={onOpenModal} />
         )}
         {totalPages > page && !isLoading && !isError && (
           <LoadMoreBtn loadMore={loadMore}>Load More</LoadMoreBtn>
