@@ -1,23 +1,33 @@
 import SearchBar from "./components/SearchBar/SearchBar";
 import { useState, useEffect } from "react";
-import { requestImagesByQuery } from "./components/fetch-api";
+import { ImagesResponse, requestImagesByQuery } from "./components/API";
 // import ImageCard from "./components/ImageCard/ImageCard";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
+import ImageGallery, {
+  ImageGalleryProps,
+} from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
 import ErrorMassage from "./components/ErrorMassage/ErrorMassage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
 import toast from "react-hot-toast";
+
+export type ImageDescription = {
+  src: string;
+  description: string;
+  id: string;
+  alt: string;
+};
+
 function App() {
-  const [images, setImages] = useState(null);
-  const [query, setQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(null);
-  const [page, setPage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [moreBtn, setMoreBtn] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
-  const [modalImage, setModalImage] = useState(null);
+  const [images, setImages] = useState<ImageGalleryProps[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [moreBtn, setMoreBtn] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [modalImage, setModalImage] = useState<null | ImageDescription>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -27,7 +37,10 @@ function App() {
         setIsError(false);
         setIsLoading(true);
 
-        const response = await requestImagesByQuery(query, page);
+        const response = await requestImagesByQuery<ImagesResponse>(
+          query,
+          page
+        );
         setTotalPages(response.total_pages);
 
         if (response.results.length > 0) {
@@ -47,18 +60,19 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const onSubmitQuery = (searchImage) => {
+  const onSubmitQuery = (searchImage: string) => {
     if (!searchImage.trim()) {
       toast.error("Please enter a search query!");
+      setIsError(true);
       return;
     }
     setPage(1);
     setImages([]);
     setQuery(searchImage);
   };
-  const onOpenModal = (image) => {
+  const onOpenModal = (arg0: boolean, image: ImageDescription) => {
     setModalImage(image);
-    setIsModalOpen(true);
+    setIsModalOpen(arg0);
   };
 
   const onCloseModal = () => {
@@ -73,7 +87,7 @@ function App() {
   return (
     <>
       <div>
-        <SearchBar onSubmitQuery={onSubmitQuery} />
+        <SearchBar onSubmitQuery={onSubmitQuery} isLoading={isLoading} />
         {isLoading && <Loader />}
         {isError && <ErrorMassage />}
         {images && images.length > 0 && (

@@ -2,12 +2,19 @@ import styles from "./SearchBar.module.css";
 import { IoIosSearch } from "react-icons/io";
 import toast from "react-hot-toast";
 
-const SearchBar = ({ onSubmitQuery }) => {
-  const handleSubmit = (e) => {
+type SearchBarProps = {
+  onSubmitQuery: (query: string) => void;
+  isLoading: boolean;
+};
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmitQuery }) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const form = e.target;
-    const query = e.target.elements.query.value.trim();
+    const form = e.target as HTMLFormElement;
+    const query = (
+      form.elements.namedItem("query") as HTMLInputElement
+    ).value.trim();
 
     if (!query.length) {
       toast.error("Please, enter your query");
